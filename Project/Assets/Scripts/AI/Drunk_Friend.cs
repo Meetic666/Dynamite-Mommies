@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Drunk_Friend : Base_AI 
+public class Drunk_Friend : Base_AI, Health_System<int>
 {
 	//Unique
 	private float m_DelayUntilStumble;
@@ -20,6 +20,7 @@ public class Drunk_Friend : Base_AI
 
 	void Start()
 	{
+		//TODO: Instantiate and hide m_WeaponPrefab
 		m_MovementSpeed = m_InitialMovementSpeed;
 	}
 
@@ -81,7 +82,14 @@ public class Drunk_Friend : Base_AI
 		}
 	}
 
-	public override void TakeDamage(int dmg)
+	protected override void TriggerAttack ()
+	{
+		//TODO: Throw m_WeaponPrefab
+
+		base.TriggerAttack ();
+	}
+
+	public void TakeDamage(int dmg)
 	{
 		m_Health -= dmg;
 

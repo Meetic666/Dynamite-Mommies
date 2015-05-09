@@ -16,8 +16,6 @@ public abstract class Base_AI : MonoBehaviour
 	}
 	protected States m_CurrentState = States.e_Idle;
 
-	public abstract void TakeDamage (int dmg);
-
 	protected virtual void ChangeStateTo (States newState)
 	{
 		switch(newState)
