@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Base_AI 
+public abstract class Base_AI 
 {
 	protected int m_Health;
 	protected enum States
