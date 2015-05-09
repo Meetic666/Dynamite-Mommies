@@ -12,46 +12,51 @@ public abstract class Base_AI : MonoBehaviour
 		e_Patrol,
 		e_Attack,
 		e_Dead,
-		e_SpecialOne
+		e_SpecialOne,
+		e_SpecialTwo,
+		e_SpecialThree
 	}
 	protected States m_CurrentState = States.e_Idle;
 
 	protected virtual void ChangeStateTo (States newState)
 	{
-		switch(newState)
+		if(m_CurrentState != newState)
 		{
-		case States.e_Idle:
-		{
-			TriggerIdle ();
-
-			break;
-		}
-		case States.e_Patrol:
-		{
-			TriggerPatrol();
-
-			break;
-		}
-		case States.e_Attack:
-		{
-			TriggerAttack();
-
-			break;
-		}
-		case States.e_Dead:
-		{
-			TriggerDeath();
-
-			break;
-		}
-		case States.e_SpecialOne:
-		{
-			TriggerSpecialOne();
-
-			break;
-		}
-		default:
-			break;
+			switch(newState)
+			{
+			case States.e_Idle:
+			{
+				TriggerIdle ();
+				
+				break;
+			}
+			case States.e_Patrol:
+			{
+				TriggerPatrol();
+				
+				break;
+			}
+			case States.e_Attack:
+			{
+				TriggerAttack();
+				
+				break;
+			}
+			case States.e_Dead:
+			{
+				TriggerDeath();
+				
+				break;
+			}
+			case States.e_SpecialOne:
+			{
+				TriggerSpecialOne();
+				
+				break;
+			}
+			default:
+				break;
+			}
 		}
 	}
 	

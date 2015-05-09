@@ -42,8 +42,6 @@ public class Drunk_Friend : Base_AI, Health_System<int>
 
 	void Update()
 	{
-		Debug.Log (m_CurrentState);
-
 		//EnemyDetection
 		if(Physics.SphereCast(transform.position + (transform.right * 0.6f), m_PlayerDetectionRadius, transform.right, out m_RayHit, m_PlayerDetectionDistance))
 		{
@@ -55,10 +53,6 @@ public class Drunk_Friend : Base_AI, Health_System<int>
 
 		switch (m_CurrentState) 
 		{
-		case States.e_Idle:
-		{
-			break;
-		}
 		case States.e_Patrol:
 		{
 			//Ledge Detection
@@ -118,16 +112,12 @@ public class Drunk_Friend : Base_AI, Health_System<int>
 				ChangeStateTo(States.e_Patrol);
 			}
 
-
 			break;
 		}
 
 		default:
 			break;
 		}
-
-		Debug.DrawRay (transform.position, transform.right, Color.green);
-
 	}
 
 	void Attack()
@@ -154,33 +144,36 @@ public class Drunk_Friend : Base_AI, Health_System<int>
 	protected override void ChangeStateTo(Base_AI.States newState)
 	{
 		//Animations and Sounds
-		switch(newState)
+		if(m_CurrentState != newState)
 		{
-		case States.e_Idle:
-		{
-			break;
+			switch(newState)
+			{
+			case States.e_Idle:
+			{
+				break;
+			}
+			case States.e_Patrol:
+			{
+				break;
+			}
+			case States.e_Attack:
+			{
+				break;
+			}
+			case States.e_Dead:
+			{
+				break;
+			}
+			case States.e_SpecialOne:
+			{
+				break;
+			}
+			default:
+				break;
+			}
+			
+			base.ChangeStateTo (newState);
 		}
-		case States.e_Patrol:
-		{
-			break;
-		}
-		case States.e_Attack:
-		{
-			break;
-		}
-		case States.e_Dead:
-		{
-			break;
-		}
-		case States.e_SpecialOne:
-		{
-			break;
-		}
-		default:
-			break;
-		}
-
-		base.ChangeStateTo (newState);
 	}
 
 	protected override void TriggerAttack ()
