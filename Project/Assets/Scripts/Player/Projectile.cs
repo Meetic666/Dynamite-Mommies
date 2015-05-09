@@ -11,10 +11,21 @@ public class Projectile : MonoBehaviour
 	public GameObject m_SplatterParticlesPrefab;
 
 	public string m_TagToIgnore;
-	
+
+	Renderer m_Renderer;
+
+	public float m_RotationSpeed;
+
+	void Start()
+	{
+		m_Renderer = GetComponentInChildren<Renderer>();
+	}
+
 	// Update is called once per frame
 	void Update () 
 	{
+		m_Renderer.transform.RotateAround(Vector3.forward, m_RotationSpeed * Time.deltaTime);
+
 		Vector3 previousPosition = transform.position;
 		transform.position += Vector3.right * m_Direction * m_Speed * Time.deltaTime;
 
