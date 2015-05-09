@@ -19,7 +19,9 @@ public abstract class Base_AI : MonoBehaviour
 	protected abstract void ChangeStateTo (States newState);
 	protected abstract void TakeDamage (int dmg);
 
-	protected virtual void DealDamage (int dmg);
+	protected virtual void DealDamage (int dmg)
+	{
+	}
 
 	protected virtual void TriggerPatrol ()
 	{
