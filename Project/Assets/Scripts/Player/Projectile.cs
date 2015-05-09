@@ -37,7 +37,12 @@ public class Projectile : MonoBehaviour
 	{
 		if(otherCollider.tag != m_TagToIgnore)
 		{
-			// Check for health component
+			Health_System<int> health = otherCollider.GetComponent<Health_System<int>>();
+
+			if(health != null)
+			{
+				health.TakeDamage(m_Damage);
+			}
 			
 			Destroy(gameObject);
 			

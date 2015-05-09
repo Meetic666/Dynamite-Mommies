@@ -7,10 +7,11 @@ public enum MovementState
 	e_Running,
 	e_Jumping,
 	e_Falling,
-	e_Floating
+	e_Floating,
+	e_Dead
 }
 
-public class Movement : MonoBehaviour 
+public class Movement : MonoBehaviour, Health_System<int>
 {
 	public float m_MovementSpeed;
 	public float m_JumpSpeed;
@@ -29,16 +30,29 @@ public class Movement : MonoBehaviour
 
 	public float m_MaxSpeedForIdle = 0.1f;
 
+	int m_CurrentHealth;
+	public int m_MaxHealth;
+
 	public MovementState CurrentState
 	{
 		get;
 		protected set;
 	}
 
+	public float HorizontalSpeed
+	{
+		get
+		{
+			return m_CurrentSpeed.x;
+		}
+	}
+
 	// Use this for initialization
 	void Start () 
 	{
 		m_Controller = GetComponent<CharacterController>();
+
+		m_CurrentHealth = m_MaxHealth;
 	}
 	
 	// Update is called once per frame
@@ -82,6 +96,18 @@ public class Movement : MonoBehaviour
 
 				CurrentState = MovementState.e_Falling;
 			}
+		}
+	}
+
+	public void TakeDamage(int dmg)
+	{
+		m_CurrentHealth -= dmg;
+
+		m_CurrentHealth = Mathf.Clamp (m_CurrentHealth, 0, m_MaxHealth);
+
+		if(m_CurrentHealth == 0)
+		{
+			CurrentState = MovementState.e_Dead;
 		}
 	}
 }

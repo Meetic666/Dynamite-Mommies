@@ -14,12 +14,20 @@ public class Attack : MonoBehaviour
 	public GameObject m_TamponPrefab;
 	public GameObject m_FlowerPrefab;
 
-	public int m_FiringRate;
+	public int m_FlowerFiringRate;
+	public int m_TamponFiringRate;
 	float m_FiringTimer;
 
 	public float m_ProjectileSpawnOffset;
 
 	int m_CurrentDirection = 1;
+
+	Movement m_Player;
+
+	void Start()
+	{
+		m_Player = GetComponent<Movement>();
+	}
 	
 	// Update is called once per frame
 	void Update () 
@@ -33,20 +41,21 @@ public class Attack : MonoBehaviour
 
 		if(m_FiringTimer <= 0.0f && Input.GetMouseButton(0))
 		{
-			m_FiringTimer = 1.0f / m_FiringRate;
-
 			GameObject newProjectile = null;
 
 			if(m_CurrentType == ProjectileType.e_Flower)
 			{
+				m_FiringTimer = 1.0f / m_FlowerFiringRate;
 				newProjectile = (GameObject) Instantiate(m_FlowerPrefab, transform.position + transform.right * m_CurrentDirection * m_ProjectileSpawnOffset, Quaternion.identity);
 			}
 			else
 			{
+				m_FiringTimer = 1.0f / m_TamponFiringRate;
 				newProjectile = (GameObject) Instantiate(m_TamponPrefab, transform.position + transform.right * m_CurrentDirection * m_ProjectileSpawnOffset, Quaternion.identity);
 			}
 
 			newProjectile.GetComponent<Projectile>().SetDirection(m_CurrentDirection);
+			newProjectile.GetComponent<Projectile>().m_Speed += Mathf.Abs (m_Player.HorizontalSpeed);
 		}
 
 		if(Input.GetKeyDown(KeyCode.LeftShift))
