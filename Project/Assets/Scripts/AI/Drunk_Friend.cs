@@ -16,17 +16,26 @@ public class Drunk_Friend : Base_AI, Health_System<int>
 	public float m_PlayerDetectionDistance;
 
 	//Prefabs/Projectiles
+	public float m_UpwardProjectileForce;
 	public GameObject m_WeaponPrefab;
 
 	void Start()
 	{
-		//TODO: Instantiate and hide m_WeaponPrefab
 		m_MovementSpeed = m_InitialMovementSpeed;
+
+		m_CurrentState = States.e_Patrol;
 	}
 
 	void Update()
 	{
-		//Ledge Detection
+		switch (m_CurrentState) {
+		case States.e_Idle:
+		{
+			break;
+		}
+		case States.e_Patrol:
+		{
+			//Ledge Detection
 		if(Physics.Raycast(transform.position + (transform.right * 0.6f), -Vector3.up, m_MaxStepHeight))
 		{
 			transform.position += (transform.right * m_MovementSpeed);
@@ -37,14 +46,33 @@ public class Drunk_Friend : Base_AI, Health_System<int>
 		}
 
 		//EnemyDetection
-
-		if(Physics.SphereCast(transform.position, m_PlayerDetectionRadius, transform.right, out m_RayHit, m_PlayerDetectionDistance))
+		if(Physics.SphereCast(transform.position + (transform.right * 0.6f), m_PlayerDetectionRadius, transform.right, out m_RayHit, m_PlayerDetectionDistance))
 		{
 			if(m_RayHit.transform.tag == "Player")
 			{
 				ChangeStateTo(States.e_Attack);
 			}
 		}
+			break;
+		}
+		case States.e_Attack:
+		{
+			break;
+		}
+		case States.e_Dead:
+		{
+			break;
+		}
+		case States.e_SpecialOne:
+		{
+			break;
+		}
+		default:
+			break;
+		}
+
+		Debug.DrawRay (transform.position, transform.right, Color.green);
+
 	}
 
 	void TurnAround()
@@ -80,11 +108,22 @@ public class Drunk_Friend : Base_AI, Health_System<int>
 		default:
 			break;
 		}
+
+		base.ChangeStateTo (newState);
 	}
 
 	protected override void TriggerAttack ()
 	{
-		//TODO: Throw m_WeaponPrefab
+		GameObject projectile = (GameObject)Instantiate (m_WeaponPrefab, transform.position + transform.right + (Vector3.up ), transform.rotation);
+		if (transform.rotation.y != 0 && transform.rotation.y != 360) 
+		{
+			projectile.GetComponent<Projectile> ().SetDirection (-1);
+		} 
+		else
+		{
+			projectile.GetComponent<Projectile> ().SetDirection (1);
+		}
+		projectile.GetComponent<Rigidbody> ().AddForce (Vector3.up * m_UpwardProjectileForce);
 
 		base.TriggerAttack ();
 	}
