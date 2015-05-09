@@ -16,16 +16,50 @@ public abstract class Base_AI : MonoBehaviour
 	}
 	protected States m_CurrentState = States.e_Idle;
 
-	protected abstract void ChangeStateTo (States newState);
-	protected abstract void TakeDamage (int dmg);
+	public abstract void TakeDamage (int dmg);
 
+	protected virtual void ChangeStateTo (States newState)
+	{
+		switch(newState)
+		{
+		case States.e_Idle:
+		{
+			TriggerIdle ();
+
+			break;
+		}
+		case States.e_Patrol:
+		{
+			TriggerPatrol();
+
+			break;
+		}
+		case States.e_Attack:
+		{
+			TriggerAttack();
+
+			break;
+		}
+		case States.e_Dead:
+		{
+			TriggerDeath();
+
+			break;
+		}
+		case States.e_SpecialOne:
+		{
+			TriggerSpecialOne();
+
+			break;
+		}
+		default:
+			break;
+		}
+	}
+	
 	protected virtual void DealDamage (int dmg)
 	{
-	}
 
-	protected virtual void TriggerPatrol ()
-	{
-		m_CurrentState = States.e_Patrol;
 	}
 
 	protected virtual void TriggerIdle ()
@@ -33,18 +67,23 @@ public abstract class Base_AI : MonoBehaviour
 		m_CurrentState = States.e_Idle;
 	}
 
+	protected virtual void TriggerPatrol ()
+	{
+		m_CurrentState = States.e_Patrol;
+	}
+
 	protected virtual void TriggerAttack ()
 	{
 		m_CurrentState = States.e_Attack;
 	}
 
+	protected virtual void TriggerDeath()
+	{
+		m_CurrentState = States.e_Dead;
+	}
+
 	protected virtual void TriggerSpecialOne ()
 	{
 		m_CurrentState = States.e_SpecialOne;
-	}
-
-	protected virtual void KillSelf()
-	{
-		m_CurrentState = States.e_Dead;
 	}
 }
