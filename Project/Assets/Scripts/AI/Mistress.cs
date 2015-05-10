@@ -35,7 +35,7 @@ public class Mistress : Base_AI, Health_System<int>
 
 	void Update()
 	{
-		Debug.Log (m_CurrentState);
+		//Debug.Log (m_CurrentState);
 		switch(m_CurrentState)
 		{
 			case States.e_Patrol:
@@ -58,8 +58,8 @@ public class Mistress : Base_AI, Health_System<int>
 				m_DisablePlayerTimer -= Time.deltaTime;
 				if(m_DisablePlayerTimer <= 0)
 				{
-					m_Target.GetComponent<Movement>().enabled = true;
-					m_Target.GetComponent<Attack>().enabled = true;
+					//m_Target.GetComponent<Movement>().enabled = true;
+					//m_Target.GetComponent<Attack>().enabled = true;
 
 					ChangeStateTo(States.e_Patrol);
 					m_DisablePlayerTimer = m_DisablePlayerTime;
@@ -139,8 +139,7 @@ public class Mistress : Base_AI, Health_System<int>
 
 	protected override void TriggerAttack()
 	{
-		m_Target.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
-		m_Target.GetComponent<Rigidbody> ().AddForce (m_AttackForce);
+		m_Target.GetComponent<Rigidbody>().velocity = m_AttackForce;
 
 		base.TriggerAttack ();
 	}
