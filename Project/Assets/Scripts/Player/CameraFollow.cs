@@ -41,7 +41,7 @@ public class CameraFollow : MonoBehaviour
 
 			if(m_EndTimer <= 0.0f)
 			{
-				Application.LoadLevel(Application.loadedLevel);
+				Application.LoadLevel("End");
 			}
 		}
 
