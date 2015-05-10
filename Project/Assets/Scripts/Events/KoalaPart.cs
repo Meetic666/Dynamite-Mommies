@@ -44,6 +44,8 @@ public class KoalaPart : MonoBehaviour
 		if(otherCollider.GetComponent<Movement>())
 		{
 			m_ProgressManager.CollectKoalaPart(m_Part);
+
+			Destroy(gameObject);
 		}
 	}
 }
