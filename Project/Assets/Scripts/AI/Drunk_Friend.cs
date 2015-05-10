@@ -158,14 +158,17 @@ public class Drunk_Friend : Base_AI, Health_System<int>
 			{
 			case States.e_Idle:
 			{
+				m_Animator.Play ("DrunkFriend_Idle");
 				break;
 			}
 			case States.e_Patrol:
 			{
+				m_Animator.Play ("DrunkFriend_Walk");
 				break;
 			}
 			case States.e_Attack:
 			{
+				m_Animator.Play ("DrunkFriend_IdleThrow");
 				break;
 			}
 			case States.e_Dead:
@@ -174,6 +177,7 @@ public class Drunk_Friend : Base_AI, Health_System<int>
 			}
 			case States.e_SpecialOne:
 			{
+				m_Animator.Play ("DrunkFriend_Idle");
 				break;
 			}
 			default:
