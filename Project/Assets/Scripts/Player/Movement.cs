@@ -33,6 +33,11 @@ public class Movement : MonoBehaviour, Health_System<int>
 	int m_CurrentHealth;
 	public int m_MaxHealth;
 
+	public Vector3 CurrentSpeed 
+	{
+		set { m_CurrentSpeed = value; }
+	}
+
 	public MovementState CurrentState
 	{
 		get;

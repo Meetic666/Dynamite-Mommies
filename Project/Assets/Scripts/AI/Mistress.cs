@@ -28,12 +28,17 @@ public class Mistress : Base_AI, Health_System<int>
 	public float m_DisablePlayerTime;
 	private float m_DisablePlayerTimer;
 
+	public bool EngagePlayer 
+	{
+		set;
+	}
+
 	void Start()
 	{
 		m_Health = m_InitialHealth;
 		m_DisablePlayerTimer = m_DisablePlayerTime;
 		m_MovementSpeed = m_InitialMovementSpeed;
-		m_CurrentState = States.e_Patrol;
+		m_CurrentState = States.e_Idle;
 	}
 
 	void Update()
@@ -41,6 +46,13 @@ public class Mistress : Base_AI, Health_System<int>
 		//Debug.Log (m_CurrentState);
 		switch(m_CurrentState)
 		{
+			case States.e_Idle:
+			{
+				if(EngagePlayer)
+				{
+					ChangeStateTo(States.e_Patrol);
+				}
+			}
 			case States.e_Patrol:
 			{
 				transform.position += (transform.right * m_MovementSpeed);
@@ -61,9 +73,6 @@ public class Mistress : Base_AI, Health_System<int>
 				m_DisablePlayerTimer -= Time.deltaTime;
 				if(m_DisablePlayerTimer <= 0)
 				{
-					//m_Target.GetComponent<Movement>().enabled = true;
-					//m_Target.GetComponent<Attack>().enabled = true;
-
 					ChangeStateTo(States.e_Patrol);
 					m_DisablePlayerTimer = m_DisablePlayerTime;
 				}
@@ -72,12 +81,9 @@ public class Mistress : Base_AI, Health_System<int>
 			}
 			case States.e_SpecialOne:
 			{
-				//m_Target.GetComponent<Movement>().enabled = false;
-				//m_Target.GetComponent<Attack>().enabled = false;
-
 				if(Vector3.Distance(m_Target.transform.position, transform.position) > m_AttackRange)
 				{
-					float posX = m_Target.transform.position.x + (transform.position.x - m_Target.transform.position.x) * Time.deltaTime;
+					float posX = m_Target.transform.position.x + (transform.position.x - m_Target.transform.position.x) * Time.deltaTime * m_SuctionSpeed;
 					m_Target.transform.position = new Vector3(posX, m_Target.transform.position.y, m_Target.transform.position.z);
 				}
 				else
@@ -142,7 +148,7 @@ public class Mistress : Base_AI, Health_System<int>
 
 	protected override void TriggerAttack()
 	{
-		m_Target.GetComponent<Rigidbody>().velocity = m_AttackForce;
+		m_Target.GetComponent<Movement> ().CurrentSpeed = m_AttackForce;
 
 		base.TriggerAttack ();
 	}
