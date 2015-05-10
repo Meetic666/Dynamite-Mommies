@@ -122,7 +122,7 @@ public class Drunk_Friend : Base_AI, Health_System<int>
 
 	void Attack()
 	{
-		GameObject projectile = (GameObject)Instantiate (m_WeaponPrefab, transform.position + transform.right + (Vector3.up ), transform.rotation);
+		GameObject projectile = (GameObject)Instantiate (m_WeaponPrefab, transform.position + transform.right + Vector3.up, transform.rotation);
 		if (transform.rotation.y != 0 && transform.rotation.y != 360) 
 		{
 			projectile.GetComponent<Projectile> ().SetDirection (-1);

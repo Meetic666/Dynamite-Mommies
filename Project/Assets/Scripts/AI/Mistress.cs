@@ -30,8 +30,8 @@ public class Mistress : Base_AI, Health_System<int>
 
 	public bool EngagePlayer 
 	{
-		get { return EngagePlayer; }
-		set { EngagePlayer = value; }
+		get;
+		set;
 	}
 
 	void Start()
