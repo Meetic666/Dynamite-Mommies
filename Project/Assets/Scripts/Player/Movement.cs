@@ -41,6 +41,8 @@ public class Movement : MonoBehaviour, Health_System<int>
 
 	AnimationManager m_AnimationManager;
 
+	float m_ReloadTimer;
+
 	public Vector3 CurrentSpeed 
 	{
 		set { m_CurrentSpeed = value; }
@@ -77,6 +79,18 @@ public class Movement : MonoBehaviour, Health_System<int>
 	// Update is called once per frame
 	void Update () 
 	{
+		if(m_ReloadTimer > 0.0f)
+		{
+			m_ReloadTimer -= Time.deltaTime;
+
+			if(m_ReloadTimer <= 0.0f)
+			{
+				Application.LoadLevel(Application.loadedLevel);
+			}
+
+			return;
+		}
+
 		if(m_IsGrounded)
 		{
 			m_CheckPointTimer -= Time.deltaTime;
@@ -178,7 +192,11 @@ public class Movement : MonoBehaviour, Health_System<int>
 		{
 			//CurrentState = MovementState.e_Dead;
 
-			Respawn ();
+			m_Animator.GetComponent<SpriteRenderer>().enabled = false;
+
+			m_ReloadTimer = 5.0f;
+
+			m_Controller.enabled = false;
 		}
 	}
 
