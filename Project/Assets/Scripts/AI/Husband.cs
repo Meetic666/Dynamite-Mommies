@@ -3,7 +3,13 @@ using System.Collections;
 
 public class Husband : Base_AI, Health_System<int> 
 {
+	//Unique
+	public int m_InitialHealth;
 
+	//Attack
+	public GameObject[] m_WeaponPrefabs = new GameObject[2];
+
+	//Movement
 
 	void Start()
 	{
@@ -91,6 +97,11 @@ public class Husband : Base_AI, Health_System<int>
 
 	public void TakeDamage(int dmg)
 	{
-
+		m_Health -= dmg;
+		
+		if(m_Health <= 0)
+		{
+			ChangeStateTo(States.e_Dead);
+		}
 	}
 }
