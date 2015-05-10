@@ -4,8 +4,9 @@ using System.Collections;
 public class ProgressManager : MonoBehaviour 
 {
 	bool[] m_PartsPickedUp;
-
 	int m_NumberOfPartsPickedUp;
+	
+	public GameObject m_Camera;
 
 	// Use this for initialization
 	void Start () 
@@ -16,7 +17,16 @@ public class ProgressManager : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-	
+		
+	}
+
+	public void EndBossFight()
+	{
+		foreach(BoxCollider collider in GetComponents<BoxCollider>())
+		{
+			collider.isTrigger = true;
+		}
+		m_Camera.GetComponent<CameraFollow> ().EndBossFight ();
 	}
 
 	public void CollectKoalaPart(KoalaPartEnum part)
@@ -24,5 +34,18 @@ public class ProgressManager : MonoBehaviour
 		m_PartsPickedUp[(int)part] = true;
 
 		m_NumberOfPartsPickedUp++;
+	}
+
+	void OnTriggerExit(Collider other)
+	{
+		if(other.tag == "Player")
+		{
+			foreach(BoxCollider collider in GetComponents<BoxCollider>())
+			{
+				collider.isTrigger = false;
+			}
+
+			m_Camera.GetComponent<CameraFollow>().BeginBossFight();
+		}
 	}
 }

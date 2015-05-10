@@ -158,6 +158,11 @@ public class Mistress : Base_AI, Health_System<int>
 		base.TriggerAttack ();
 	}
 
+	protected override void TriggerDeath()
+	{
+		FindObjectOfType<ProgressManager> ().GetComponent<ProgressManager> ().EndBossFight ();
+	}
+
 	public void TakeDamage(int dmg)
 	{
 		m_Health -= dmg;
