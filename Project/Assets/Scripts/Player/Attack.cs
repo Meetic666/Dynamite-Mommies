@@ -47,7 +47,7 @@ public class Attack : MonoBehaviour
 
 		m_FiringTimer -= Time.deltaTime;
 
-		if(Input.GetMouseButton(0))
+		if(Input.GetMouseButton(0) || Input.GetKey (KeyCode.LeftControl))
 		{
 			m_Animator.SetBool ("IsShooting", true);
 			

@@ -43,6 +43,8 @@ public class Movement : MonoBehaviour, Health_System<int>
 
 	float m_ReloadTimer;
 
+	public GameObject[] m_HealthBar;
+
 	public Vector3 CurrentSpeed 
 	{
 		set { m_CurrentSpeed = value; }
@@ -197,6 +199,11 @@ public class Movement : MonoBehaviour, Health_System<int>
 			m_ReloadTimer = 5.0f;
 
 			m_Controller.enabled = false;
+		}
+		
+		for(int i = m_CurrentHealth; i < m_HealthBar.Length; i++)
+		{
+			m_HealthBar[i].SetActive (false);
 		}
 	}
 
