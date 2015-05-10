@@ -1,0 +1,220 @@
+fileFormatVersion: 2
+guid: 2402a9cad9d0c2b4abb791d711449cec
+timeCreated: 1431265474
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Mommy_Idle0
+    21300002: Mommy_Idle1
+    21300004: Mommy_Idle2
+    21300006: Mommy_Run0
+    21300008: Mommy_Run1
+    21300010: Mommy_Run2
+    21300012: Mommy_Run3
+    21300014: Mommy_ShootRun0
+    21300016: Mommy_ShootRun1
+    21300018: Mommy_ShootRun2
+    21300020: Mommy_ShootRun3
+    21300022: Mommy_Jump0
+    21300024: Mommy_Float0
+    21300026: Mommy_JumpShoot0
+    21300028: Mommy_FloatShoot0
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Mommy_Idle0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 411
+        width: 137
+        height: 188
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Mommy_Idle1
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 412
+        width: 137
+        height: 188
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Mommy_Idle2
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 412
+        width: 137
+        height: 188
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Mommy_Run0
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 412
+        width: 137
+        height: 188
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Mommy_Run1
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 412
+        width: 137
+        height: 188
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Mommy_Run2
+      rect:
+        serializedVersion: 2
+        x: 685
+        y: 412
+        width: 137
+        height: 188
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Mommy_Run3
+      rect:
+        serializedVersion: 2
+        x: 822
+        y: 412
+        width: 137
+        height: 188
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Mommy_ShootRun0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 224
+        width: 137
+        height: 188
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Mommy_ShootRun1
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 225
+        width: 137
+        height: 188
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Mommy_ShootRun2
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 224
+        width: 137
+        height: 188
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Mommy_ShootRun3
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 224
+        width: 137
+        height: 188
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Mommy_Jump0
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 224
+        width: 137
+        height: 188
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Mommy_Float0
+      rect:
+        serializedVersion: 2
+        x: 685
+        y: 224
+        width: 137
+        height: 188
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Mommy_JumpShoot0
+      rect:
+        serializedVersion: 2
+        x: 822
+        y: 224
+        width: 137
+        height: 188
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Mommy_FloatShoot0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 36
+        width: 137
+        height: 188
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

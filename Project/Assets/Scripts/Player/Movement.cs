@@ -37,6 +37,10 @@ public class Movement : MonoBehaviour, Health_System<int>
 	int m_CurrentHealth;
 	public int m_MaxHealth;
 
+	Animator m_Animator;
+
+	AnimationManager m_AnimationManager;
+
 	public Vector3 CurrentSpeed 
 	{
 		set { m_CurrentSpeed = value; }
@@ -64,6 +68,10 @@ public class Movement : MonoBehaviour, Health_System<int>
 		m_Controller = GetComponent<CharacterController>();
 
 		m_CurrentHealth = m_MaxHealth;
+
+		m_Animator = GetComponentInChildren<Animator>();
+
+		m_AnimationManager = GetComponentInChildren<AnimationManager>();
 	}
 	
 	// Update is called once per frame
@@ -88,6 +96,9 @@ public class Movement : MonoBehaviour, Health_System<int>
 
 		if(m_IsGrounded)
 		{
+			m_Animator.SetBool("IsJumping", false);
+			m_Animator.SetBool("IsFloating", false);
+
 			RaycastHit hitInfo;
 
 			if(Physics.Raycast (transform.position, Vector3.down, out hitInfo))
@@ -105,15 +116,22 @@ public class Movement : MonoBehaviour, Health_System<int>
 				m_CurrentSpeed.y = m_JumpSpeed;
 
 				CurrentState = MovementState.e_Jumping;
+
+				m_Animator.SetBool("IsJumping", true);
+				m_Animator.SetBool("IsRunning", false);
 			}
 
 			if(Mathf.Abs (m_CurrentSpeed.x) < m_MaxSpeedForIdle)
 			{
 				CurrentState = MovementState.e_Idle;
+				
+				m_Animator.SetBool("IsRunning", false);
 			}
 			else
 			{
 				CurrentState = MovementState.e_Running;
+
+				m_Animator.SetBool("IsRunning", true);
 			}
 		}
 		else
@@ -127,14 +145,27 @@ public class Movement : MonoBehaviour, Health_System<int>
 				m_CurrentSpeed.y -= m_GravityWhenHoldingJump * Time.deltaTime;
 
 				CurrentState = MovementState.e_Floating;
+
+				m_Animator.SetBool("IsFloating", true);
 			}
 			else
 			{
 				m_CurrentSpeed.y -= m_Gravity * Time.deltaTime;
 
 				CurrentState = MovementState.e_Falling;
+
+				m_Animator.SetBool("IsFloating", false);
 			}
 		}
+
+		if(Mathf.Abs (m_CurrentSpeed.x) > m_MaxSpeedForIdle)
+		{
+			Vector3 newScale = m_Animator.transform.localScale;
+			newScale.x = Mathf.Sign (m_CurrentSpeed.x);
+			m_Animator.transform.localScale = newScale;
+		}
+
+		m_AnimationManager.SetState(CurrentState);
 	}
 
 	public void TakeDamage(int dmg)

@@ -24,38 +24,58 @@ public class Attack : MonoBehaviour
 
 	Movement m_Player;
 
+	Animator m_Animator;
+
+	AnimationManager m_AnimationManager;
+
 	void Start()
 	{
 		m_Player = GetComponent<Movement>();
+
+		m_Animator = GetComponentInChildren<Animator>();
+		m_AnimationManager = GetComponentInChildren<AnimationManager>();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if(Mathf.Abs (Input.GetAxis ("Horizontal")) > 0.25f)
+		if(Mathf.Abs (m_Player.HorizontalSpeed) > m_Player.m_MaxSpeedForIdle)
 		{
-			m_CurrentDirection = (int) Mathf.Sign (Input.GetAxis ("Horizontal"));
+			m_CurrentDirection = (int) Mathf.Sign (m_Player.HorizontalSpeed);
 		}
 
 		m_FiringTimer -= Time.deltaTime;
 
-		if(m_FiringTimer <= 0.0f && Input.GetMouseButton(0))
+		if(Input.GetMouseButton(0))
 		{
-			GameObject newProjectile = null;
+			m_Animator.SetBool ("IsShooting", true);
+			
+			m_AnimationManager.SetShooting(true);
 
-			if(m_CurrentType == ProjectileType.e_Flower)
+			if(m_FiringTimer <= 0.0f)
 			{
-				m_FiringTimer = 1.0f / m_FlowerFiringRate;
-				newProjectile = (GameObject) Instantiate(m_FlowerPrefab, transform.position + transform.right * m_CurrentDirection * m_ProjectileSpawnOffset, Quaternion.identity);
-			}
-			else
-			{
-				m_FiringTimer = 1.0f / m_TamponFiringRate;
-				newProjectile = (GameObject) Instantiate(m_TamponPrefab, transform.position + transform.right * m_CurrentDirection * m_ProjectileSpawnOffset, Quaternion.identity);
-			}
+				GameObject newProjectile = null;
 
-			newProjectile.GetComponent<Projectile>().SetDirection(m_CurrentDirection);
-			newProjectile.GetComponent<Projectile>().m_Speed += Mathf.Abs (m_Player.HorizontalSpeed);
+				if(m_CurrentType == ProjectileType.e_Flower)
+				{
+					m_FiringTimer = 1.0f / m_FlowerFiringRate;
+					newProjectile = (GameObject) Instantiate(m_FlowerPrefab, transform.position + transform.right * m_CurrentDirection * m_ProjectileSpawnOffset, Quaternion.identity);
+				}
+				else
+				{
+					m_FiringTimer = 1.0f / m_TamponFiringRate;
+					newProjectile = (GameObject) Instantiate(m_TamponPrefab, transform.position + transform.right * m_CurrentDirection * m_ProjectileSpawnOffset, Quaternion.identity);
+				}
+
+				newProjectile.GetComponent<Projectile>().SetDirection(m_CurrentDirection);
+				newProjectile.GetComponent<Projectile>().m_Speed += Mathf.Abs (m_Player.HorizontalSpeed);
+			}
+		}
+		else
+		{
+			m_Animator.SetBool ("IsShooting", false);
+
+			m_AnimationManager.SetShooting(false);
 		}
 
 		if(Input.GetKeyDown(KeyCode.LeftShift))
