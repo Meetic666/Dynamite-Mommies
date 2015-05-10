@@ -176,7 +176,9 @@ public class Movement : MonoBehaviour, Health_System<int>
 
 		if(m_CurrentHealth == 0)
 		{
-			CurrentState = MovementState.e_Dead;
+			//CurrentState = MovementState.e_Dead;
+
+			Respawn ();
 		}
 	}
 

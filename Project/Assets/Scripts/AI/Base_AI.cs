@@ -18,6 +18,8 @@ public abstract class Base_AI : MonoBehaviour
 	}
 	protected States m_CurrentState = States.e_Idle;
 
+	public Animator m_Animator;
+
 	protected virtual void ChangeStateTo (States newState)
 	{
 		if(m_CurrentState != newState)

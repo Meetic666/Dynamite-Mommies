@@ -125,7 +125,9 @@ public class Mistress : Base_AI, Health_System<int>
 					break;
 				}
 				case States.e_Dead:
-				{
+				{				
+					// For now
+					Destroy (gameObject);
 					break;
 				}
 				case States.e_SpecialOne:
