@@ -19,6 +19,9 @@ public class Drunk_Friend : Base_AI, Health_System<int>
 
 	//Movement
 	public float m_InitialMovementSpeed;
+	private Vector3 m_LastPosition;
+	public float m_CheckPositionTime;
+	private float m_CheckPositionTimer;
 
 	//Detection
 	public float m_MaxStepHeight;
@@ -33,6 +36,7 @@ public class Drunk_Friend : Base_AI, Health_System<int>
 
 	void Start()
 	{
+		m_CheckPositionTimer = m_CheckPositionTime;
 		m_DelayUntilStumbleTimer = Random.Range(1, m_MaxDelayUntilStumble);
 		m_DelayUntilAttackTimer = 0.0f;
 		m_CollapsedDurationTimer = m_CollapsedDuration;
@@ -63,6 +67,20 @@ public class Drunk_Friend : Base_AI, Health_System<int>
 		{
 		case States.e_Patrol:
 		{
+			m_CheckPositionTimer -= Time.deltaTime;
+			if(m_CheckPositionTimer <= 0)
+			{
+				if(transform.position == m_LastPosition)
+				{
+					TurnAround();
+				}
+				else
+				{
+					m_LastPosition = transform.position;
+				}
+				m_CheckPositionTimer = m_CheckPositionTime;
+			}
+
 			//Ledge Detection
 			if(Physics.Raycast(transform.position + (transform.right * 0.6f), -Vector3.up, m_MaxStepHeight))
 			{
