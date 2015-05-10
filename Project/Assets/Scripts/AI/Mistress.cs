@@ -30,7 +30,8 @@ public class Mistress : Base_AI, Health_System<int>
 
 	public bool EngagePlayer 
 	{
-		set;
+		get { return EngagePlayer; }
+		set { EngagePlayer = value; }
 	}
 
 	void Start()
@@ -52,6 +53,7 @@ public class Mistress : Base_AI, Health_System<int>
 				{
 					ChangeStateTo(States.e_Patrol);
 				}
+				break;
 			}
 			case States.e_Patrol:
 			{
