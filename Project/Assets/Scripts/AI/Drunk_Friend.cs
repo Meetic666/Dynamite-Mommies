@@ -173,6 +173,7 @@ public class Drunk_Friend : Base_AI, Health_System<int>
 			}
 			case States.e_Dead:
 			{
+				gameObject.SetActive(false);
 				break;
 			}
 			case States.e_SpecialOne:
