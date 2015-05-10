@@ -10,10 +10,13 @@ public class Husband : Base_AI, Health_System<int>
 	public GameObject[] m_WeaponPrefabs = new GameObject[2];
 
 	//Movement
+	public float m_InitialMovementSpeed;
 
 	void Start()
 	{
-
+		m_MovementSpeed = m_InitialMovementSpeed;
+		m_Health = m_InitialHealth;
+		m_CurrentState = States.e_Idle;
 	}
 
 	void Update()
