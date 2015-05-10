@@ -17,6 +17,10 @@ public class Movement : MonoBehaviour, Health_System<int>
 	public float m_JumpSpeed;
 	public float m_AerialSpeed;
 
+	public float m_CheckPointDelay;
+	float m_CheckPointTimer;
+	public Vector3 m_CheckPointPosition;
+
 	CharacterController m_Controller;
 
 	Vector3 m_CurrentSpeed;
@@ -55,6 +59,8 @@ public class Movement : MonoBehaviour, Health_System<int>
 	// Use this for initialization
 	void Start () 
 	{
+		m_CheckPointTimer = m_CheckPointDelay;
+
 		m_Controller = GetComponent<CharacterController>();
 
 		m_CurrentHealth = m_MaxHealth;
@@ -63,6 +69,21 @@ public class Movement : MonoBehaviour, Health_System<int>
 	// Update is called once per frame
 	void Update () 
 	{
+		if(m_IsGrounded)
+		{
+			m_CheckPointTimer -= Time.deltaTime;
+			if(m_CheckPointTimer <= 0)
+			{
+				m_CheckPointPosition = transform.position;
+				m_CheckPointTimer = m_CheckPointDelay;
+			}
+		}
+
+		if(transform.position.y <= -10)
+		{
+			Respawn();
+		}
+
 		m_IsGrounded = (m_Controller.Move(m_CurrentSpeed * Time.deltaTime) & CollisionFlags.Below) != 0;
 
 		if(m_IsGrounded)
@@ -126,5 +147,10 @@ public class Movement : MonoBehaviour, Health_System<int>
 		{
 			CurrentState = MovementState.e_Dead;
 		}
+	}
+
+	void Respawn()
+	{
+		transform.position = m_CheckPointPosition;
 	}
 }

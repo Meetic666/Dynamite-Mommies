@@ -22,7 +22,7 @@ public class Mistress : Base_AI, Health_System<int>
 	public float m_SuctionRadius;
 
 	public float m_AttackRange;
-	public float m_AttackDamage;
+	public int m_AttackDamage;
 	public Vector3 m_AttackForce;
 
 	public float m_DisablePlayerTime;
@@ -151,6 +151,7 @@ public class Mistress : Base_AI, Health_System<int>
 	protected override void TriggerAttack()
 	{
 		m_Target.GetComponent<Movement> ().CurrentSpeed = m_AttackForce;
+		m_Target.GetComponent<Movement> ().TakeDamage (m_AttackDamage);
 
 		base.TriggerAttack ();
 	}

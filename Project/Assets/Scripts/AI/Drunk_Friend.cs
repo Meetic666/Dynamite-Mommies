@@ -50,6 +50,10 @@ public class Drunk_Friend : Base_AI, Health_System<int>
 				m_PlayerInRange = true;
 			}
 		}
+		else
+		{
+			m_PlayerInRange = false;
+		}
 
 		switch (m_CurrentState) 
 		{

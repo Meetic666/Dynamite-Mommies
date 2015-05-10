@@ -61,7 +61,7 @@ public class Husband : Base_AI, Health_System<int>
 		{
 		case States.e_Idle:
 		{
-			if(true)
+			if(EngagePlayer)
 			{
 				SetDestination ( new Vector3 (transform.position.x, m_HoverHeight, transform.position.z), States.e_Patrol);
 				EngagePlayer = false;
