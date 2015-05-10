@@ -15,6 +15,8 @@ public class Mistress : Base_AI, Health_System<int>
 	public float m_InitialMovementSpeed;
 
 	//Attack
+	public int m_InitialHealth;
+
 	public float m_SuctionRange;
 	public float m_SuctionSpeed;
 	public float m_SuctionRadius;
@@ -28,6 +30,7 @@ public class Mistress : Base_AI, Health_System<int>
 
 	void Start()
 	{
+		m_Health = m_InitialHealth;
 		m_DisablePlayerTimer = m_DisablePlayerTime;
 		m_MovementSpeed = m_InitialMovementSpeed;
 		m_CurrentState = States.e_Patrol;
