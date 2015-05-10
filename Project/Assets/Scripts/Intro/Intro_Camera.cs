@@ -24,6 +24,11 @@ public class Intro_Camera : MonoBehaviour
 		{
 			Application.LoadLevel ("Main");
 		}
+
+		if(Input.GetKeyDown(KeyCode.Escape))
+		{
+			Application.Quit();
+		}
 	}
 
 	void OnGUI()
