@@ -32,6 +32,9 @@ public class Husband : Base_AI, Health_System<int>
 	public float m_InitialMovementSpeed;
 	private Vector3 m_Destination;
 
+	float m_CenterPositionX;
+	public float m_AmplitudeX;
+
 	public bool EngagePlayer 
 	{
 		get;
@@ -52,11 +55,12 @@ public class Husband : Base_AI, Health_System<int>
 		{
 			m_WeaponPrefabs[i].GetComponent<Projectile>().SetDirection(-1);
 		}
+
+		m_CenterPositionX = transform.position.x;
 	}
 
 	void Update()
 	{
-		Debug.Log (m_CurrentState);
 		switch(m_CurrentState)
 		{
 		case States.e_Idle:
@@ -72,7 +76,7 @@ public class Husband : Base_AI, Health_System<int>
 		case States.e_Patrol:
 		{
 			float posY = transform.position.y /* + Mathf.Sin(Time.time * 30) / 6*/;
-			float posX = transform.position.x + Mathf.Sin(Time.time * 3) / 2;
+			float posX = m_CenterPositionX + Mathf.Sin(Time.time * 3) * m_AmplitudeX;
 
 			transform.position = new Vector3(posX, posY, transform.position.z);
 
@@ -182,7 +186,8 @@ public class Husband : Base_AI, Health_System<int>
 				break;
 			}
 			case States.e_Dead:
-			{
+			{				
+				gameObject.SetActive (false);
 				break;
 			}
 			case States.e_SpecialOne:
@@ -226,6 +231,8 @@ public class Husband : Base_AI, Health_System<int>
 	protected override void TriggerDeath()
 	{
 		GetComponent<Rigidbody> ().useGravity = true;
+
+		FindObjectOfType<ProgressManager> ().GetComponent<ProgressManager> ().EndBossFight ();
 
 		base.TriggerDeath ();
 	}

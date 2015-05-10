@@ -26,6 +26,9 @@ public class ProgressManager : MonoBehaviour
 		{
 			collider.isTrigger = true;
 		}
+
+		GetComponent<BoxCollider>().enabled = false;
+
 		m_Camera.GetComponent<CameraFollow> ().EndBossFight ();
 	}
 
@@ -38,7 +41,7 @@ public class ProgressManager : MonoBehaviour
 
 	void OnTriggerExit(Collider other)
 	{
-		if(other.tag == "Player")
+		if(other.tag == "Player" && other.GetComponent<Movement>() && other.GetComponent<Movement>().HorizontalSpeed > 0.0f)
 		{
 			foreach(BoxCollider collider in GetComponents<BoxCollider>())
 			{

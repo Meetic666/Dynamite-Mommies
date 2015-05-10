@@ -24,6 +24,8 @@ public class CameraFollow : MonoBehaviour
 	bool m_InBossFight = false;
 	float m_OriginalZPosition;
 
+	float m_EndTimer;
+
 	void Start()
 	{
 		m_OriginalZPosition = transform.position.z;
@@ -33,6 +35,16 @@ public class CameraFollow : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+		if(m_EndTimer > 0.0f)
+		{
+			m_EndTimer -= Time.deltaTime;
+
+			if(m_EndTimer <= 0.0f)
+			{
+				Application.LoadLevel(Application.loadedLevel);
+			}
+		}
+
 		Vector3 newPosition = transform.position;
 		newPosition += m_CurrentSpeed * Time.deltaTime;
 
@@ -79,7 +91,7 @@ public class CameraFollow : MonoBehaviour
 		}
 		else
 		{
-			m_HusbandBoss.GetComponent<Mistress>().EngagePlayer = true;
+			m_HusbandBoss.GetComponent<Husband>().EngagePlayer = true;
 		}
 	}
 
@@ -91,10 +103,14 @@ public class CameraFollow : MonoBehaviour
 		}
 		else
 		{
-			m_HusbandBoss.GetComponent<Mistress>().EngagePlayer = false;
+			m_HusbandBoss.GetComponent<Husband>().EngagePlayer = false;
+
+			m_EndTimer = 5.0f;
 		}
 
 		m_InBossFight = false;
 		m_CurrentBossFight++;
+
+		m_CurrentTarget = m_Target;
 	}
 }

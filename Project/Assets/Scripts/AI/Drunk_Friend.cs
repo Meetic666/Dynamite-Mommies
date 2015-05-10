@@ -29,6 +29,8 @@ public class Drunk_Friend : Base_AI, Health_System<int>
 	public float m_UpwardProjectileForce;
 	public GameObject m_WeaponPrefab;
 
+	public int m_InitialHealth;
+
 	void Start()
 	{
 		m_DelayUntilStumbleTimer = Random.Range(1, m_MaxDelayUntilStumble);
@@ -38,6 +40,8 @@ public class Drunk_Friend : Base_AI, Health_System<int>
 		m_MovementSpeed = m_InitialMovementSpeed;
 
 		m_CurrentState = States.e_Patrol;
+
+		m_Health = m_InitialHealth;
 	}
 
 	void Update()

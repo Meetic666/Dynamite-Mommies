@@ -19,6 +19,7 @@ public class Attack : MonoBehaviour
 	float m_FiringTimer;
 
 	public float m_ProjectileSpawnOffset;
+	public float m_VerticalPjectileSpawnOffset;
 
 	int m_CurrentDirection = 1;
 
@@ -59,12 +60,12 @@ public class Attack : MonoBehaviour
 				if(m_CurrentType == ProjectileType.e_Flower)
 				{
 					m_FiringTimer = 1.0f / m_FlowerFiringRate;
-					newProjectile = (GameObject) Instantiate(m_FlowerPrefab, transform.position + transform.right * m_CurrentDirection * m_ProjectileSpawnOffset, Quaternion.identity);
+					newProjectile = (GameObject) Instantiate(m_FlowerPrefab, transform.position + transform.right * m_CurrentDirection * m_ProjectileSpawnOffset + transform.up * m_VerticalPjectileSpawnOffset, Quaternion.identity);
 				}
 				else
 				{
 					m_FiringTimer = 1.0f / m_TamponFiringRate;
-					newProjectile = (GameObject) Instantiate(m_TamponPrefab, transform.position + transform.right * m_CurrentDirection * m_ProjectileSpawnOffset, Quaternion.identity);
+					newProjectile = (GameObject) Instantiate(m_TamponPrefab, transform.position + transform.right * m_CurrentDirection * m_ProjectileSpawnOffset + transform.up * m_VerticalPjectileSpawnOffset, Quaternion.identity);
 				}
 
 				newProjectile.GetComponent<Projectile>().SetDirection(m_CurrentDirection);

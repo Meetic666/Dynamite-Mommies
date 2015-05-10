@@ -114,24 +114,28 @@ public class Mistress : Base_AI, Health_System<int>
 			{
 				case States.e_Idle:
 				{
+					m_Animator.Play ("Mistress_Patrol");
 					break;
 				}
 				case States.e_Patrol:
 				{
+					m_Animator.Play ("Mistress_Patrol");
 					break;
 				}
 				case States.e_Attack:
 				{
+					m_Animator.Play ("Mistress_Attack");
 					break;
 				}
 				case States.e_Dead:
 				{				
 					// For now
-					Destroy (gameObject);
+					gameObject.SetActive (false);
 					break;
 				}
 				case States.e_SpecialOne:
 				{
+					m_Animator.Play ("Mistress_Sucking");
 					break;
 				}
 				case States.e_SpecialTwo:
@@ -175,7 +179,7 @@ public class Mistress : Base_AI, Health_System<int>
 
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.tag == "Player")
+		if(other.tag == "Player" && other.GetComponent<Movement>())
 		{
 			TurnAround();
 		}
