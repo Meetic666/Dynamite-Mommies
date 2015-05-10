@@ -41,7 +41,7 @@ public class CameraFollow : MonoBehaviour
 
 			if(m_EndTimer <= 0.0f)
 			{
-				Application.LoadLevel("End");
+				Application.LoadLevel("Intro");
 			}
 		}
 
@@ -105,7 +105,7 @@ public class CameraFollow : MonoBehaviour
 		{
 			m_HusbandBoss.GetComponent<Husband>().EngagePlayer = false;
 
-			m_EndTimer = 5.0f;
+			m_EndTimer = 3.0f;
 		}
 
 		m_InBossFight = false;

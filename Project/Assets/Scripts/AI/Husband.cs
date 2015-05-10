@@ -4,9 +4,6 @@ using System.Collections;
 public class Husband : Base_AI, Health_System<int> 
 {
 	//Unique
-	public float m_DelayUntilCredits;
-	private float m_DelayUntilCreditsTimer;
-
 	private Vector3 m_InitialPosition;
 	public int m_InitialHealth;
 	public float m_StateDuration;
@@ -46,7 +43,6 @@ public class Husband : Base_AI, Health_System<int>
 
 	void Start()
 	{
-		m_DelayUntilCreditsTimer = m_DelayUntilCredits;
 		m_DelayBetweenShotsTimer = 0.0f;
 		m_InitialPosition = transform.position;
 		m_StateDurationTimer = m_StateDuration;
@@ -138,11 +134,7 @@ public class Husband : Base_AI, Health_System<int>
 		}
 		case States.e_Dead:
 		{
-			m_DelayUntilCreditsTimer -= Time.deltaTime;
-			if(m_DelayUntilCreditsTimer <= 0)
-			{
-				Application.LoadLevel("Intro");
-			}
+
 
 			break;
 		}
