@@ -3,6 +3,8 @@ using System.Collections;
 
 public class CameraFollow : MonoBehaviour 
 {
+	public Rect m_Bounds;
+
 	public GameObject m_Target;
 
 	public float m_CameraSpeed;
@@ -15,7 +17,13 @@ public class CameraFollow : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		transform.position += m_CurrentSpeed * Time.deltaTime;
+		Vector3 newPosition = transform.position;
+		newPosition += m_CurrentSpeed * Time.deltaTime;
+
+		newPosition.x = Mathf.Clamp (newPosition.x, m_Bounds.xMin, m_Bounds.xMax);
+		newPosition.y = Mathf.Clamp (newPosition.y, m_Bounds.yMin, m_Bounds.yMax);
+
+		transform.position = newPosition;
 
 		Vector3 targetOffset = m_Target.transform.position - transform.position;
 
@@ -32,5 +40,7 @@ public class CameraFollow : MonoBehaviour
 		}
 
 		m_CurrentSpeed = Vector3.Lerp(m_CurrentSpeed, targetSpeed, m_CameraAcceleration * Time.deltaTime);
+
+
 	}
 }

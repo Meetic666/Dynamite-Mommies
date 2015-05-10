@@ -24,7 +24,7 @@ public class Projectile : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		m_Renderer.transform.RotateAround(Vector3.forward, m_RotationSpeed * Time.deltaTime);
+		m_Renderer.transform.Rotate(Vector3.forward, m_RotationSpeed * Time.deltaTime);
 
 		Vector3 previousPosition = transform.position;
 		transform.position += Vector3.right * m_Direction * m_Speed * Time.deltaTime;

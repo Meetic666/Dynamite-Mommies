@@ -62,6 +62,16 @@ public class Movement : MonoBehaviour, Health_System<int>
 
 		if(m_IsGrounded)
 		{
+			RaycastHit hitInfo;
+
+			if(Physics.Raycast (transform.position, Vector3.down, out hitInfo))
+			{
+				if(hitInfo.collider.GetComponent<MovingPlatform>())
+				{
+					transform.parent = hitInfo.collider.transform;
+				}
+			}
+
 			m_CurrentSpeed.x = Mathf.Lerp (m_CurrentSpeed.x, m_MovementSpeed * Input.GetAxis ("Horizontal"), m_Acceleration * Time.deltaTime);
 
 			if(Input.GetButtonDown("Jump"))
@@ -82,6 +92,8 @@ public class Movement : MonoBehaviour, Health_System<int>
 		}
 		else
 		{
+			transform.parent = null;
+
 			m_CurrentSpeed.x = Mathf.Lerp (m_CurrentSpeed.x, m_AerialSpeed * Input.GetAxis ("Horizontal"), m_Acceleration * Time.deltaTime);
 
 			if(Input.GetButton("Jump"))
