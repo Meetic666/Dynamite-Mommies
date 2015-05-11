@@ -196,6 +196,8 @@ public class Movement : MonoBehaviour, Health_System<int>
 
 			m_Animator.GetComponent<SpriteRenderer>().enabled = false;
 
+			GetComponent<Attack>().enabled = false;
+
 			m_ReloadTimer = 5.0f;
 
 			m_Controller.enabled = false;
