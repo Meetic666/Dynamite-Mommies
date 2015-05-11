@@ -241,11 +241,14 @@ public class Husband : Base_AI, Health_System<int>
 
 	public void TakeDamage(int dmg)
 	{
-		m_Health -= dmg;
-		
-		if(m_Health <= 0)
+		if(m_CurrentState != States.e_Idle)
 		{
-			ChangeStateTo(States.e_Dead);
+			m_Health -= dmg;
+			
+			if(m_Health <= 0)
+			{
+				ChangeStateTo(States.e_Dead);
+			}
 		}
 	}
 }
