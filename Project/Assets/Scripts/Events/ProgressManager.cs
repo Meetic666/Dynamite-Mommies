@@ -34,6 +34,14 @@ public class ProgressManager : MonoBehaviour
 		m_PartDisplay[(int)part].SetActive (true);
 
 		m_NumberOfPartsPickedUp++;
+
+		if(m_NumberOfPartsPickedUp >= m_PartDisplay.Length)
+		{
+			foreach(BoxCollider collider in GetComponents<BoxCollider>())
+			{
+				collider.isTrigger = true;
+			}
+		}
 	}
 
 	void OnTriggerExit(Collider other)
