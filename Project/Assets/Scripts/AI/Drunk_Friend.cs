@@ -19,9 +19,7 @@ public class Drunk_Friend : Base_AI, Health_System<int>
 
 	//Movement
 	public float m_InitialMovementSpeed;
-	private Vector3 m_LastPosition;
-	public float m_CheckPositionTime;
-	private float m_CheckPositionTimer;
+	private Vector3 m_PreviousPosition;
 
 	//Detection
 	public float m_MaxStepHeight;
@@ -36,14 +34,13 @@ public class Drunk_Friend : Base_AI, Health_System<int>
 
 	void Start()
 	{
-		m_CheckPositionTimer = m_CheckPositionTime;
 		m_DelayUntilStumbleTimer = Random.Range(1, m_MaxDelayUntilStumble);
 		m_DelayUntilAttackTimer = 0.0f;
 		m_CollapsedDurationTimer = m_CollapsedDuration;
 
 		m_MovementSpeed = m_InitialMovementSpeed;
 
-		m_CurrentState = States.e_Patrol;
+		ChangeStateTo (States.e_Patrol);
 
 		m_Health = m_InitialHealth;
 	}
@@ -67,28 +64,21 @@ public class Drunk_Friend : Base_AI, Health_System<int>
 		{
 		case States.e_Patrol:
 		{
-			m_CheckPositionTimer -= Time.deltaTime;
-			if(m_CheckPositionTimer <= 0)
-			{
-				if(transform.position == m_LastPosition)
-				{
-					TurnAround();
-				}
-				else
-				{
-					m_LastPosition = transform.position;
-				}
-				m_CheckPositionTimer = m_CheckPositionTime;
-			}
-
 			//Ledge Detection
 			if(Physics.Raycast(transform.position + (transform.right * 0.6f), -Vector3.up, m_MaxStepHeight))
 			{
+				if( m_PreviousPosition + (transform.right * m_MovementSpeed) != transform.position)
+				{
+					TurnAround();
+				}
+
+				m_PreviousPosition = transform.position;
 				transform.position += (transform.right * m_MovementSpeed);
 			}
 			else
 			{
 				TurnAround();
+				transform.position += (transform.right * m_MovementSpeed * 2);
 			}
 
 			//Player Detected
@@ -149,7 +139,7 @@ public class Drunk_Friend : Base_AI, Health_System<int>
 	void Attack()
 	{
 		GameObject projectile = (GameObject)Instantiate (m_WeaponPrefab, transform.position + transform.right + Vector3.up, transform.rotation);
-		if (transform.rotation.y != 0 && transform.rotation.y != 360) 
+		if ((int)transform.eulerAngles.y == 180) 
 		{
 			projectile.GetComponent<Projectile> ().SetDirection (-1);
 		} 
